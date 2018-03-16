@@ -1,0 +1,6 @@
+testpkg/
+node_modules/
+yarn.lock
+.ftp
+
+.idea/
