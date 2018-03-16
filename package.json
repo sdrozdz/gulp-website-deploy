@@ -1,11 +1,15 @@
 {
   "name": "gulp-website-deploy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create zip and deploy website to ftp.",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "index": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sdrozdz/gulp-website-deploy"
   },
   "dependencies": {
     "archiver": "^2.1.1",
