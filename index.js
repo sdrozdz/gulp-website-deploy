@@ -14,20 +14,24 @@ module.exports = function(options) {
         ftpConfig: '.ftp',
         url: '',
         directory: 'testpkg',
-        destination: 'wwwtest/lppaczki',
+        destination: 'deploy',
         name: 'LP',
         dateFormat: 'YYYYMMDD_HHmmSS',
-        password: 'nimda',
+        password: '',
         zip: false
     }, options);
 
+
+    var normalize = function(filepath) {
+        return filepath.replace(/\\/g, '/');
+    };
     var packageName = options.name + '_' + moment().format(options.dateFormat);
     var resultPath = path.join(options.destination, packageName);
     var ftpParams = JSON.parse(fs.readFileSync(options.ftpConfig, 'utf-8'));
 
     var ftp = new FtpClient();
     ftp.on('ready', function() {
-        ftp.mkdir(resultPath, function(err) {
+        ftp.mkdir(normalize(resultPath), function(err) {
             if(err) throw err;
             console.log('FTP Deploying...');
             dir.readFilesStream(options.directory, function(err, stream, next) {
@@ -37,8 +41,8 @@ module.exports = function(options) {
                 dirname = dirname.replace('/' + options.directory, '').replace('\\' + options.directory, '');
                 var outputPath = path.join(dirname, path.basename(stream.path));
 
-                ftp.mkdir(dirname, function() {
-                    ftp.put(stream, outputPath, function(err) {
+                ftp.mkdir(normalize(dirname), function(err) {
+                    ftp.put(stream, normalize(outputPath), function(err) {
                         if(err) throw err;
                         next();
                     });
@@ -65,7 +69,7 @@ module.exports = function(options) {
                 function(err, stdout, stderr) {
                     if(err) throw err;
 
-                    ftp.put(zipfile, options.destination + '/' + zipfile, function(err) {
+                    ftp.put(zipfile, normalize(path.join(options.destination, zipfile)), function(err) {
                         if(err) throw err;
                         ftp.end();
                         fs.unlinkSync(zipfile);
@@ -92,7 +96,7 @@ module.exports = function(options) {
             });
 
             output.on('close', function() {
-                ftp.put(zipfile, options.destination + '/' + zipfile, function(err) {
+                ftp.put(zipfile, normalize(path.join(options.destination, zipfile)), function(err) {
                     if(err) throw err;
                     ftp.end();
                     fs.unlinkSync(zipfile);
