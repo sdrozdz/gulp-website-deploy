@@ -24,9 +24,19 @@ gulp.task('deploy', () =>
 
 #### ftpConfig
   
-Path to ftp config file. Default: `'.ftp'`
+Path to ftp config file in json format. Default: `'.ftp'`
   
 Type: `string`
+
+Supports config from [ftp](https://www.npmjs.com/package/ftp) package. For example: 
+```json
+{
+  "host": "",
+  "port": 21,
+  "user": "",
+  "password": ""
+}
+```
 
 #### url
   
