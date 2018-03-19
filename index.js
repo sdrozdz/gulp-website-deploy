@@ -17,8 +17,8 @@ module.exports = function(options) {
         destination: 'deploy',
         name: 'LP',
         dateFormat: 'YYYYMMDD_HHmmSS',
-        password: '',
-        zip: false
+        zip: false,
+        password: ''
     }, options);
 
 
