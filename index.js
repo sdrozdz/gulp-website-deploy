@@ -118,9 +118,11 @@ module.exports = function(options) {
             host += host.charAt(host.length-1) !== '/' ? '/' : '';
         }
 
-        console.log('Demo: ' + host + resultPath);
+        var resultUrl = normalize(resultPath);
+
+        console.log('Demo: ' + host + resultUrl);
         if(options.zip) {
-            console.log('Paczka: ' + host + resultPath + '.zip');
+            console.log('Paczka: ' + host + resultUrl + '.zip');
             if(options.password) {
                 console.log('Hasło: ' + options.password)
             }

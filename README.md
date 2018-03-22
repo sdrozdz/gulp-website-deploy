@@ -13,8 +13,15 @@ const websiteDeploy = require('gulp-website-deploy');
 
 gulp.task('deploy', () =>
     websiteDeploy({
-    
-    })	
+        ftpConfig: '.ftp',
+        url: '',
+        directory: 'testpkg',
+        destination: 'deploy',
+        name: 'LP',
+        dateFormat: 'YYYYMMDD_HHmmSS',
+        zip: false,
+        password: ''
+    });	
 );
 ```
 
@@ -64,7 +71,7 @@ Type: `string`
 
 #### zip
   
-Should script create and upload zip file. Default: `'false'` 
+Should script create and upload zip file. Default: `false` 
   
 Type: `boolean`
 
