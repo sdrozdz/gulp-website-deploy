@@ -42,13 +42,14 @@ module.exports = function(options) {
                 var outputPath = path.join(dirname, path.basename(stream.path));
 
                 ftp.mkdir(normalize(dirname), function(err) {
-                    ftp.put(stream, normalize(outputPath), function(err) {
+                    ftp.put(stream.path, normalize(outputPath), function(err) {
                         if(err) throw err;
                         next();
                     });
                 });
 
                 next();
+
             }, function() {
                 if(!options.zip) {
                     ftp.end();
@@ -134,3 +135,5 @@ module.exports = function(options) {
 
 
 };
+
+module.exports({});
